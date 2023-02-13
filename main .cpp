@@ -1,5 +1,4 @@
 /*
-Name: Nasir Alizade
 2022-03-23
 DT06G
 Labb1
@@ -42,7 +41,7 @@ vector<Person> find_person_from_city(const vector<Person>& haystack, string city
 
 int main()
 {
-    SetConsoleCP(1252);//för svenska bokstäver
+    SetConsoleCP(1252);//fÃ¶r svenska bokstÃ¤ver
     SetConsoleOutputCP(1252);
     locale::global(locale(""));
     vector<Person> list=read_file("names.txt");
@@ -50,18 +49,18 @@ int main()
    int option=0;
    while (option!=3)
    {
-       cout << "1 - Sök del av personnam!" << endl;
-       cout << "2 - Sök efter personer i stad!" << endl;
+       cout << "1 - SÃ¶k del av personnam!" << endl;
+       cout << "2 - SÃ¶k efter personer i stad!" << endl;
        cout << "3 - Avsluta!" <<endl;
        do
        {
-          cout << "Skriv här: ";
+          cout << "Skriv hÃ¤r: ";
           getline( cin ,input);
-       } while (input.empty() || !isdigit(input.front()));//input får inte vara tom eller bokstäver
+       } while (input.empty() || !isdigit(input.front()));//input fÃ¥r inte vara tom eller bokstÃ¤ver
        option = input.front()-'0';
        if (option==1)
        {
-           cout << "Skriv ett namn att söka efter: ";
+           cout << "Skriv ett namn att sÃ¶ka efter: ";
            getline(cin, name_part);
            size_t count = find_in_names(list, name_part);
            cout << "Hittade " << count << " personer med liknande namn." << endl;
@@ -70,7 +69,7 @@ int main()
        }
        else if (option==2)
        {
-           cout << "Skriv en stad att söka efter: ";
+           cout << "Skriv en stad att sÃ¶ka efter: ";
            getline(cin, name_part);
            vector<Person> sublist = find_person_from_city(list, name_part);
          
@@ -100,14 +99,14 @@ istream& operator>>(istream& in, Person& p)
     getline(in, p.id);
     getline(in, p.location.street, ',');
     in.ignore();//ignorera whitespace
-    getline(in, zip1, ' ');//ta första delen av postnummer
+    getline(in, zip1, ' ');//ta fÃ¶rsta delen av postnummer
     getline(in, zip2, ' ');//ta andra delen av postnummer
-    stringstream omv(zip1 +  zip2);//slår ihop
+    stringstream omv(zip1 +  zip2);//slÃ¥r ihop
     omv >> p.location.zip;
     in.ignore();
     string citySecond;
     getline(in,citySecond); ;
-    p.location.city = rtrim(citySecond);//funktionen trim tar bort whitespace som kan förekomma
+    p.location.city = rtrim(citySecond);//funktionen trim tar bort whitespace som kan fÃ¶rekomma
     return in;
 }
 vector<Person> read_file(string filename)
@@ -129,23 +128,23 @@ vector<Person> read_file(string filename)
 size_t find_in_names(const vector<Person> &haystack, string name_part)
 {
     name_part = toUpper(name_part);
-    //räkna bara de som har söksträngen som en substräng inom sig
+    //rÃ¤kna bara de som har sÃ¶kstrÃ¤ngen som en substrÃ¤ng inom sig
     return	count_if(haystack.begin(), haystack.end(), [&](const Person &p)
         {
             string tmp = p.name;
             tmp = toUpper(tmp);
-            return tmp.find(name_part) != string::npos;//::om den inte hittar någon  matchning så returnerar npos, att den har ingen position
+            return tmp.find(name_part) != string::npos;//::om den inte hittar nÃ¥gon  matchning sÃ¥ returnerar npos, att den har ingen position
         });
 }
 string toUpper(string str)
 {
     transform(str.begin(), str.end(), str.begin(), ::toupper);
-    while (str.find("å") != std::string::npos)
-        str.replace(str.find("å"), 2, "Å");
-    while (str.find("ä") != std::string::npos)
-        str.replace(str.find("ä"), 2, "Ä");
-    while (str.find("ö") != std::string::npos)
-        str.replace(str.find("ö"), 2, "Ö");
+    while (str.find("Ã¥") != std::string::npos)
+        str.replace(str.find("Ã¥"), 2, "Ã…");
+    while (str.find("Ã¤") != std::string::npos)
+        str.replace(str.find("Ã¤"), 2, "Ã„");
+    while (str.find("Ã¶") != std::string::npos)
+        str.replace(str.find("Ã¶"), 2, "Ã–");
         
     return str;
 }
@@ -159,7 +158,7 @@ vector<Person> find_person_from_city(const vector<Person>& haystack, string city
         string tmp = p.location.city;
         tmp = toUpper(tmp);
         
-        if (tmp == city)//om nuvarande staden matchar med vår vårterm, så ska denna person med
+        if (tmp == city)//om nuvarande staden matchar med vÃ¥r vÃ¥rterm, sÃ¥ ska denna person med
         {
             city_found.push_back(p);
         }
@@ -168,7 +167,7 @@ vector<Person> find_person_from_city(const vector<Person>& haystack, string city
     return city_found;
 }
 
-//funktioner används för att ta bort mellanslag 
+//funktioner anvÃ¤nds fÃ¶r att ta bort mellanslag 
 string rtrim( const string& s ) {
     return regex_replace( s, regex( "\\s+$" ), string( "" ) );
 }
